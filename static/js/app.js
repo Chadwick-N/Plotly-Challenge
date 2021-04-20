@@ -4,6 +4,7 @@ var barChart = d3.select("#bar");
 var bubbleChart = d3.select("bubble");
 var gaugeChart = d3.select("gauge");
 
+// function to populate dropdown menu with IDs and chart creation
 function init() {
     resetData();
     d3.json("data/samples.json").then((data => {
@@ -16,3 +17,10 @@ function init() {
     })); 
 }
 
+// function to reset divs to prepare for new data
+function resetData() {
+    demographicsTable.html("");
+    barChart.html("");
+    bubbleChart.html("");
+    gaugeChart.html("");
+};
