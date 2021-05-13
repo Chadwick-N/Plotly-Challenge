@@ -38,7 +38,6 @@ function plotCharts(id) {
             listItem.text(`${key}: ${value}`);
         });
 
-
         // Filter the samples for the ID chosen
         var individualSample = data.samples.filter(sample => sample.id == id)[0];
         var otuIds = [];
@@ -68,7 +67,16 @@ function plotCharts(id) {
         var topSampleValues = sampleValues[0].slice(0, 10).reverse();
         var topOtuIdsFormatted = topOtuIds.map(otuID => "OTU " + otuID);
 
-
+        var traceBar = {
+            x: topSampleValues,
+            y: topOtuIdsFormatted,
+            text: topOtuLabels,
+            type: 'bar',
+            orientation: 'h',
+            marker: {
+                color: 'rgb(29,145,192)'
+            }
+        };
 
     }));
 };
