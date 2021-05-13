@@ -4,7 +4,7 @@ var barChart = d3.select("#bar");
 var bubbleChart = d3.select("bubble");
 var gaugeChart = d3.select("gauge");
 
-// function to populate dropdown menu with IDs and chart creation
+// Function to populate dropdown menu with IDs and chart creation
 function init() {
     resetData();
     d3.json("data/samples.json").then((data => {
@@ -17,7 +17,7 @@ function init() {
     })); 
 }
 
-// function to reset divs to prepare for new data
+// Function to reset divs to prepare for new data
 function resetData() {
     demographicsTable.html("");
     barChart.html("");
@@ -25,7 +25,7 @@ function resetData() {
     gaugeChart.html("");
 };
 
-// function to read JSON and plot charts
+// Function to read JSON and plot charts
 function plotCharts(id) {
     d3.json("data/samples.json").then((data => {
         var individualMetadata = data.metadata.filter(participant => participant.id == id)[0];
@@ -39,13 +39,13 @@ function plotCharts(id) {
         });
 
 
-        // filter the samples for the ID chosen
+        // Filter the samples for the ID chosen
         var individualSample = data.samples.filter(sample => sample.id == id)[0];
         var otuIds = [];
         var otuLabels = [];
         var sampleValues = [];
 
-        // Iterate through each key and value in the sample to retrieve data for plotting
+        // Retrieve data for plotting
         Object.entries(individualSample).forEach(([key, value]) => {
             switch (key) {
                 case "otu_ids":
@@ -61,11 +61,13 @@ function plotCharts(id) {
                     break;
             }
         });
-
+        
+        // Get top 10 values, labels and IDs
         var topOtuIds = otuIds[0].slice(0, 10).reverse();
         var topOtuLabels = otuLabels[0].slice(0, 10).reverse();
         var topSampleValues = sampleValues[0].slice(0, 10).reverse();
         var topOtuIdsFormatted = topOtuIds.map(otuID => "OTU " + otuID);
+
 
 
     }));
