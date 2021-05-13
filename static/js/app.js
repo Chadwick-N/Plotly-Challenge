@@ -38,13 +38,11 @@ function plotCharts(id) {
             listItem.text(`${key}: ${value}`);
         });
 
-        // Filter the samples for the ID chosen
         var individualSample = data.samples.filter(sample => sample.id == id)[0];
         var otuIds = [];
         var otuLabels = [];
         var sampleValues = [];
 
-        // Retrieve data for plotting
         Object.entries(individualSample).forEach(([key, value]) => {
             switch (key) {
                 case "otu_ids":
@@ -61,7 +59,6 @@ function plotCharts(id) {
             }
         });
         
-        // Get top 10 values, labels and IDs
         var topOtuIds = otuIds[0].slice(0, 10).reverse();
         var topOtuLabels = otuLabels[0].slice(0, 10).reverse();
         var topSampleValues = sampleValues[0].slice(0, 10).reverse();
@@ -92,7 +89,7 @@ function plotCharts(id) {
                 }
             },
             title: {
-                text: `<b>Top 10 OTU's for Subject #${id}</b>`,
+                text: `<b>Top 10 OTU's for ID #${id}</b>`,
                 font: {
                     size: 18,
                     color: 'rgb(34,94,168)'
@@ -109,6 +106,41 @@ function plotCharts(id) {
         }
 
         Plotly.newPlot("bar", dataBar, layoutBar);
+
+        var traceBub = {
+            x: otuIds[0],
+            y: sampleValues[0],
+            text: otuLabels[0],
+            mode: 'markers',
+            marker: {
+                size: sampleValues[0],
+                color: otuIds[0],
+                colorscale: 'rgb'
+            }
+        };
+
+        var dataBub = [traceBub];
+
+        var layoutBub = {
+            font: {
+                family: 'Ariel'
+            },
+            hoverlabel: {
+                font: {
+                    family: 'Ariel'
+                }
+            },
+            xaxis: {
+                title: "<b>OTU ID</b>",
+                color: 'rgb(30,150,200)'
+            },
+            yaxis: {
+                title: "<b>Sample Values</b>",
+                color: 'rgb(30,150,200)'
+            },
+        };
+
+        Plotly.newPlot('bubble', dataBub, layoutBub);
 
     }));
 };
