@@ -74,9 +74,41 @@ function plotCharts(id) {
             type: 'bar',
             orientation: 'h',
             marker: {
-                color: 'rgb(29,145,192)'
+                color: 'rgb(30,150,200)'
             }
         };
+
+        var dataBar = [traceBar];
+
+        var layoutBar = {
+            height: 750,
+            width: 1000,
+            font: {
+                family: 'Ariel'
+            },
+            hoverlabel: {
+                font: {
+                    family: 'Ariel'
+                }
+            },
+            title: {
+                text: `<b>Top 10 OTU's for Subject #${id}</b>`,
+                font: {
+                    size: 18,
+                    color: 'rgb(34,94,168)'
+                }
+            },
+            xaxis: {
+                title: "<b>Sample Values<b>",
+                color: 'rgb(30,150,200)',
+                tickfont: { size: 17 }
+            },
+            yaxis: {
+                tickfont: { size: 17 }
+            }
+        }
+
+        Plotly.newPlot("bar", dataBar, layoutBar);
 
     }));
 };
