@@ -38,6 +38,36 @@ function plotCharts(id) {
             listItem.text(`${key}: ${value}`);
         });
 
+
+        // filter the samples for the ID chosen
+        var individualSample = data.samples.filter(sample => sample.id == id)[0];
+        var otuIds = [];
+        var otuLabels = [];
+        var sampleValues = [];
+
+        // Iterate through each key and value in the sample to retrieve data for plotting
+        Object.entries(individualSample).forEach(([key, value]) => {
+            switch (key) {
+                case "otu_ids":
+                    otuIds.push(value);
+                    break;
+                case "sample_values":
+                    sampleValues.push(value);
+                    break;
+                case "otu_labels":
+                    otuLabels.push(value);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        var topOtuIds = otuIds[0].slice(0, 10).reverse();
+        var topOtuLabels = otuLabels[0].slice(0, 10).reverse();
+        var topSampleValues = sampleValues[0].slice(0, 10).reverse();
+        var topOtuIdsFormatted = topOtuIds.map(otuID => "OTU " + otuID);
+
+
     }));
 };
 
